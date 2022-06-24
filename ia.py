@@ -26,7 +26,7 @@ encoder = OrdinalEncoder()
 
 #print(set(dados['cor']))-->cores no dataset
 nomes_classes = ['Gato','Cachorro']
-tabela_cores = set(features['cor'])
+tabela_cores = list(set(features['cor']))
 features['cor'] = encoder.fit_transform(pd.DataFrame(features['cor']))
 features
 classes = encoder.fit_transform(pd.DataFrame(classes))
@@ -58,8 +58,8 @@ st.number_input('Digite o tamanho da cauda do animal (em cm):', key='cauda')
 st.number_input('Digite o tamanho da orelha do animal (em cm):', key='orelha')
 cor = st.selectbox('Escolha a cor do animal:', tabela_cores)
 
-individuo = [st.session_state('peso'),st.session_state('cauda'), st.session_state('orelha'), tabela_cores.index(cor)]
+individuo = [st.session_state.peso, st.session_state.cauda, st.session_state.orelha, tabela_cores.index(cor)]
 
-predicao = arvore.predict(individuo)
-
-st.write('O animal previsto pela árvore é: ' +nomes_classes[predicao])
+if st.button('Rodar a árvore'):
+	predicao = arvore.predict(individuo)
+	st.write('O animal previsto pela árvore é: ' +nomes_classes[predicao])
